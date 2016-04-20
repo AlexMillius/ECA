@@ -9,14 +9,17 @@
 import UIKit
 import Firebase
 
+private struct Reference {
+    static let firebase = Firebase(url: "https://fiery-torch-1961.firebaseio.com")
+    static let tableViewCell = "basic cell"
+}
+
 class ViewController: UIViewController {
-    
-    let refFirebase = Firebase(url: "https://fiery-torch-1961.firebaseio.com")
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        refFirebase.setValue("Coucou Mon amour, j'ai configuré la base de donnée pour l'espace culturel :)")
+        // Do any additional setup after loading the view, typically from a nib. 
+        Reference.firebase.setValue("Coucou Mon amour, j'ai configuré la base de donnée pour l'espace culturel :)")
     }
 
     override func didReceiveMemoryWarning() {
