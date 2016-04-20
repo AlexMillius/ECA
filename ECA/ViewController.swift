@@ -11,7 +11,7 @@ import Firebase
 
 class ViewController: UIViewController {
     
-    let refFirebase = Firebase(url: "https://fiery-torch-1961.firebaseio.com")
+    let refFirebase = Firebase(url: "https://fiery-torch-1961.firebaseio.com") 
 
     override func viewDidLoad() {
         super.viewDidLoad()
