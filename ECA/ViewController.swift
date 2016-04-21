@@ -9,17 +9,23 @@
 import UIKit
 import Firebase
 
-private struct Reference {
-    static let firebase = Firebase(url: "https://fiery-torch-1961.firebaseio.com")
-    static let tableViewCell = "basic cell"
-}
-
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib. 
-        Reference.firebase.setValue("Coucou Mon amour, j'ai configuré la base de donnée pour l'espace culturel :)")
+        
+        let dataTransfert = DataTransfert()
+        dataTransfert.retrieveDataOnce()
+        
+//        let jeudi21 = ["date":"21.04.2016","heure":"19h30","description":"Soirée Bhajans et chants du coeur, avec Luc Raimondi","lieu":"espace culturel","intervenant":"Luc Raimondi"]
+//        let samedi23 = ["date":"23.04.2016","heure":"20h00","description":"Spectacle Mémoires partagées: dans le prolongement de la Semaine d'actions contre le Racisme, des femmes de tout horizon partagent leurs histoires en paroles et en chants, accompagnées d'Emilie Vuissoz et de Pauline Lugon.","lieu":"espace culturel","intervenant":""]
+//        
+//        let eventsRef = Reference.firebaseRoot.childByAppendingPath(Reference.ecaEvent)
+//        
+//        let events = ["jeudi21": jeudi21, "samedi23": samedi23]
+//        eventsRef.setValue(events)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
