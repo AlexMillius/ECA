@@ -14,4 +14,19 @@ struct Reference {
     static let firebaseEvents = Firebase(url: "https://eca.firebaseio.com/events")
     static let tableViewCell = "basic cell"
     static let ecaEvent = "events"
+    static let ecaHeure = "heure"
+    static let ecaJour = "date"
+    static let ecaDescription = "description"
+    static let ecaIntervenant = "intervenant"
+    static let ecaLieu = "lieu"
 }
+
+enum tagTblView:Int {
+    case date = 1
+    case heure
+    case description
+}
+
+
+
+

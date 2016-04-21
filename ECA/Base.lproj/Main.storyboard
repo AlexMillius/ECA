@@ -35,23 +35,23 @@
                                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2w-2i-G0X" userLabel="backgroundView">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="115"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mercredi 22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jZ-k7-jIz" userLabel="dateLabel">
-                                                            <rect key="frame" x="8" y="32" width="93" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22.22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jZ-k7-jIz" userLabel="dateLabel">
+                                                            <rect key="frame" x="8" y="32" width="52" height="21"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="93" id="S7g-xB-59c"/>
+                                                                <constraint firstAttribute="width" constant="52" id="51L-8p-nuN"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66h66" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRk-0a-JST">
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66h66" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRk-0a-JST">
                                                             <rect key="frame" x="8" y="62" width="52" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xUs-pP-uxg" userLabel="descriptionLabel">
-                                                            <rect key="frame" x="141" y="8" width="451" height="99"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xUs-pP-uxg" userLabel="descriptionLabel">
+                                                            <rect key="frame" x="70" y="8" width="522" height="99"/>
                                                             <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maece</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -67,7 +67,7 @@
                                                         <constraint firstItem="1jZ-k7-jIz" firstAttribute="centerY" secondItem="K2w-2i-G0X" secondAttribute="centerY" constant="-15" id="Hp6-P0-RPU"/>
                                                         <constraint firstItem="1jZ-k7-jIz" firstAttribute="leading" secondItem="K2w-2i-G0X" secondAttribute="leadingMargin" id="bSv-IA-M11"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="xUs-pP-uxg" secondAttribute="bottom" id="r9C-ML-7cz"/>
-                                                        <constraint firstItem="xUs-pP-uxg" firstAttribute="leading" secondItem="1jZ-k7-jIz" secondAttribute="trailing" constant="40" id="ydW-Ih-1CN"/>
+                                                        <constraint firstItem="xUs-pP-uxg" firstAttribute="leading" secondItem="1jZ-k7-jIz" secondAttribute="trailing" constant="10" id="ydW-Ih-1CN"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -109,6 +109,9 @@
                             <constraint firstItem="PCM-x8-sfU" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="r0J-GB-DlJ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="eventTableView" destination="DKr-CN-ULg" id="taS-P3-NNs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
