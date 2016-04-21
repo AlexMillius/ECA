@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var eventTableView: UITableView!
     
     var events = [basicEvent]()
+    var currentDate: NSDate?
+    var currentDescription: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +40,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return events.count
     }
     
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(Reference.tableViewCell){
             if let description = cell.contentView.viewWithTag(tagTblView.description.rawValue) as? UILabel {
-                description.text = events[indexPath.row].description
+                currentDescription = events[indexPath.row].description
+                description.text = currentDescription
             }
             if let date = cell.contentView.viewWithTag(tagTblView.date.rawValue) as? UILabel {
+                currentDate = events[indexPath.row].date
                 date.text = events[indexPath.row].jour
                 // TODO: pouvoir retourner lundi-mardi-mercredi janvier-février
             }
@@ -56,6 +59,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             //TODO: Throw error
            return UITableViewCell()
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(Reference.detailSegueIdentifier, sender: nil)
+    }
+    
+    //MARK: prepareSegue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Reference.detailSegueIdentifier {
+            if let detailVC = segue.destinationViewController as? DetailViewController {
+                detailVC.date = currentDate
+                detailVC.texteEvent = currentDescription
+            }
+            
         }
     }
 }

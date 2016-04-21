@@ -111,11 +111,89 @@
                     </view>
                     <connections>
                         <outlet property="eventTableView" destination="DKr-CN-ULg" id="taS-P3-NNs"/>
+                        <segue destination="6wA-R6-dpz" kind="presentation" identifier="detailViewSegue" id="g52-AE-3Je"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="288" y="290"/>
+            <point key="canvasLocation" x="-52" y="288"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="B6q-re-vG3">
+            <objects>
+                <viewController id="6wA-R6-dpz" customClass="DetailViewController" customModule="ECA" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LLU-Bz-BcA"/>
+                        <viewControllerLayoutGuide type="bottom" id="qmF-fQ-ZwA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AdY-KG-NwN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Description" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oO-N3-uz3" userLabel="description">
+                                <rect key="frame" x="20" y="93" width="560" height="448"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date + Heure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1d8-e8-jES" userLabel="date et heure">
+                                <rect key="frame" x="249" y="63" width="102" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueu-S8-8Zx">
+                                <rect key="frame" x="20" y="20" width="46" height="30"/>
+                                <state key="normal" title="Retour"/>
+                                <connections>
+                                    <action selector="retourTapped" destination="6wA-R6-dpz" eventType="touchUpInside" id="SjM-38-0zR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5V-r3-GUh" userLabel="share">
+                                <rect key="frame" x="125" y="549" width="350" height="30"/>
+                                <state key="normal" title="Partager"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIJ-tM-E88" userLabel="remind">
+                                <rect key="frame" x="483" y="549" width="97" height="30"/>
+                                <state key="normal" title="Me rappeler "/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOm-9K-LUZ" userLabel="addCalendar">
+                                <rect key="frame" x="20" y="549" width="97" height="30"/>
+                                <state key="normal" title="Dans l'agenda"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="ueu-S8-8Zx" secondAttribute="leading" id="05W-6U-0dO"/>
+                            <constraint firstItem="1d8-e8-jES" firstAttribute="centerX" secondItem="AdY-KG-NwN" secondAttribute="centerX" id="4Lf-Hi-zF7"/>
+                            <constraint firstItem="ueu-S8-8Zx" firstAttribute="top" secondItem="LLU-Bz-BcA" secondAttribute="bottom" id="9SC-Zn-uFM"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="9oO-N3-uz3" secondAttribute="leading" id="A84-e7-TgQ"/>
+                            <constraint firstItem="qmF-fQ-ZwA" firstAttribute="top" secondItem="OIJ-tM-E88" secondAttribute="bottom" constant="21" id="ACV-dy-9EX"/>
+                            <constraint firstItem="1d8-e8-jES" firstAttribute="top" secondItem="LLU-Bz-BcA" secondAttribute="bottom" constant="43" id="NMG-Pa-1c7"/>
+                            <constraint firstItem="qmF-fQ-ZwA" firstAttribute="top" secondItem="cOm-9K-LUZ" secondAttribute="bottom" constant="21" id="PPz-Qo-RXQ"/>
+                            <constraint firstItem="9oO-N3-uz3" firstAttribute="top" secondItem="1d8-e8-jES" secondAttribute="bottom" constant="9" id="PiT-a9-xzi"/>
+                            <constraint firstItem="cOm-9K-LUZ" firstAttribute="top" secondItem="9oO-N3-uz3" secondAttribute="bottom" constant="8" id="VpA-U5-bGU"/>
+                            <constraint firstItem="R5V-r3-GUh" firstAttribute="centerX" secondItem="AdY-KG-NwN" secondAttribute="centerX" id="WcN-mZ-wUx"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="cOm-9K-LUZ" secondAttribute="leading" id="cQa-qc-yz7"/>
+                            <constraint firstItem="qmF-fQ-ZwA" firstAttribute="top" secondItem="R5V-r3-GUh" secondAttribute="bottom" constant="21" id="crf-FX-gxZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OIJ-tM-E88" secondAttribute="trailing" id="rCW-Ca-9Hz"/>
+                            <constraint firstItem="OIJ-tM-E88" firstAttribute="leading" secondItem="R5V-r3-GUh" secondAttribute="trailing" constant="8" id="tFb-Mm-f2X"/>
+                            <constraint firstItem="R5V-r3-GUh" firstAttribute="leading" secondItem="cOm-9K-LUZ" secondAttribute="trailing" constant="8" id="uBC-uL-5nd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9oO-N3-uz3" secondAttribute="trailing" id="vaU-z2-Y9M"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addCalendarBtn" destination="cOm-9K-LUZ" id="u97-bV-rif"/>
+                        <outlet property="backBtn" destination="ueu-S8-8Zx" id="44Q-yo-ts3"/>
+                        <outlet property="dateTimeLbl" destination="1d8-e8-jES" id="EwH-we-IdK"/>
+                        <outlet property="descriptionLbl" destination="9oO-N3-uz3" id="JLX-gI-uy8"/>
+                        <outlet property="remindMeBtn" destination="OIJ-tM-E88" id="wYK-RI-DLe"/>
+                        <outlet property="shareBtn" destination="R5V-r3-GUh" id="CJM-Gb-iTb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T6x-rk-kW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="706" y="288"/>
         </scene>
     </scenes>
 </document>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D938F0361CC9376500BC1C23 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D938F0351CC9376500BC1C23 /* DetailViewController.swift */; };
 		D968D9961CC7B13F00D2115E /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D968D9951CC7B13F00D2115E /* DataModel.swift */; };
 		D97E64651CC8C76F00C0D179 /* Reference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97E64641CC8C76F00C0D179 /* Reference.swift */; };
 		D9FE7E0D1CC7A4A2002EEE3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7E0C1CC7A4A2002EEE3C /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D938F0351CC9376500BC1C23 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		D968D9951CC7B13F00D2115E /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		D97E64641CC8C76F00C0D179 /* Reference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reference.swift; sourceTree = "<group>"; };
 		D9FE7E091CC7A4A2002EEE3C /* ECA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECA.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				D9FE7E0E1CC7A4A2002EEE3C /* ViewController.swift */,
+				D938F0351CC9376500BC1C23 /* DetailViewController.swift */,
 				D968D9951CC7B13F00D2115E /* DataModel.swift */,
 				D97E64641CC8C76F00C0D179 /* Reference.swift */,
 				D9FE7E101CC7A4A2002EEE3C /* Main.storyboard */,
@@ -196,6 +199,7 @@
 			files = (
 				D9FE7E0F1CC7A4A2002EEE3C /* ViewController.swift in Sources */,
 				D97E64651CC8C76F00C0D179 /* Reference.swift in Sources */,
+				D938F0361CC9376500BC1C23 /* DetailViewController.swift in Sources */,
 				D9FE7E0D1CC7A4A2002EEE3C /* AppDelegate.swift in Sources */,
 				D968D9961CC7B13F00D2115E /* DataModel.swift in Sources */,
 			);

@@ -19,6 +19,7 @@ struct Reference {
     static let ecaDescription = "description"
     static let ecaIntervenant = "intervenant"
     static let ecaLieu = "lieu"
+    static let detailSegueIdentifier = "detailViewSegue"
 }
 
 enum tagTblView:Int {
