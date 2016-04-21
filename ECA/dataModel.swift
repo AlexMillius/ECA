@@ -60,9 +60,14 @@ class basicEvent:eventType {
     }
 }
 
-class concert:basicEvent {
-    override func shortDescription() -> String {
-        return "le concert \(name) aura lieu le \(jour) - \(heure) à \(location)"
+class DataTransfert {
+    let eventRef = Reference.firebaseEvents
+    
+    func retrieveDataOnce(){
+        eventRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            print(snapshot.value.objectForKey("jeudi21"))
+            print(snapshot.value.objectForKey("location"))
+        })
     }
 }
 
