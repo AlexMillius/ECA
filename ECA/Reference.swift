@@ -22,6 +22,9 @@ struct Reference {
     static let ecaLieu = "lieu"
     static let detailSegueIdentifier = "detailViewSegue"
     static let estimatedRowHeight:CGFloat = 160.0
+    static let dateHeureFormat = "dd.MM.yyyy HH:mm"
+    static let heureFormat = "dd"
+    
 }
 
 enum tagTblView:Int {
@@ -30,6 +33,14 @@ enum tagTblView:Int {
     case description
 }
 
-
+enum dayOfWeek:String {
+    case dimanche
+    case lundi
+    case mardi
+    case mercredi
+    case jeudi
+    case vendredi
+    case samedi
+}
 
 

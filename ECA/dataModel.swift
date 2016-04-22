@@ -13,11 +13,12 @@ protocol DataDelegate {
 }
 
 protocol eventType {
-    var date:NSDate { get }
-    var jourToDisplay:String { get }
-    var heureToDisplay:String { get }
-    var location:String { get }
-    var description:String { get }
+    var date: NSDate { get }
+    var jourChiffreToDisplay: String { get }
+    var jourLettreToDisplay: String { get }
+    var heureToDisplay: String { get }
+    var location: String { get }
+    var description: String { get }
     
     func shortDescription() -> String
 }
@@ -25,9 +26,24 @@ protocol eventType {
 class basicEvent:eventType {
     let dateFormatter = NSDateFormatter()
     var date: NSDate
-    var jourToDisplay:String {
-        dateFormatter.dateFormat = "dd"
+    var jourChiffreToDisplay: String {
+        dateFormatter.dateFormat = Reference.heureFormat
         return dateFormatter.stringFromDate(date)
+    }
+    var jourLettreToDisplay: String {
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let myComponents = myCalendar.components(.Weekday, fromDate: date)
+        let weekDay = myComponents.weekday
+        switch weekDay {
+        case 1: return dayOfWeek.dimanche.rawValue
+        case 2: return dayOfWeek.lundi.rawValue
+        case 3: return dayOfWeek.mardi.rawValue
+        case 4: return dayOfWeek.mercredi.rawValue
+        case 5: return dayOfWeek.jeudi.rawValue
+        case 6: return dayOfWeek.vendredi.rawValue
+        case 7: return dayOfWeek.samedi.rawValue
+        default: return ""
+        }
     }
     var heureToDisplay: String {
         let hours = NSCalendar.currentCalendar().component(.Hour, fromDate: date)
@@ -51,7 +67,7 @@ class basicEvent:eventType {
     }
     
     func shortDescription() -> String {
-        return "\(jourToDisplay) \(heureToDisplay) \(location) \(description)"
+        return "\(jourChiffreToDisplay) \(jourLettreToDisplay) \(heureToDisplay) \(location) \(description)"
     }
 }
 
@@ -63,7 +79,7 @@ class DataTransfert {
     let dateFormatter = NSDateFormatter()
     
     private func convertDate(date: String) -> NSDate? {
-        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        dateFormatter.dateFormat = Reference.dateHeureFormat
         return dateFormatter.dateFromString(date)
     }
     
