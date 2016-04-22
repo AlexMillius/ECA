@@ -28,7 +28,6 @@ struct Reference {
 
 enum tagTblView:Int {
     case date = 1
-    case heure
     case description
 }
 

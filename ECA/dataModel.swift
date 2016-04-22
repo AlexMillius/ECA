@@ -26,6 +26,7 @@ protocol eventType {
 
 class basicEvent:eventType {
     let dateFormatter = NSDateFormatter()
+    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
     var date:NSDate
     var jourChiffreToDisplay:String {
         dateFormatter.dateFormat = Reference.heureFormat
@@ -33,12 +34,25 @@ class basicEvent:eventType {
     }
     var jourLettreToDisplay: String {
         var weekDay:Int?
-        if let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian){
-            let myComponents = myCalendar.components(.Weekday, fromDate: date)
-            weekDay = myComponents.weekday
+        if let myCalendar = calendar{
+            let myWeekComponents = myCalendar.components(.Weekday, fromDate: date)
+            weekDay = myWeekComponents.weekday
         }
         if let weekDayUnwrapped = weekDay, jourEnLettre = dayOfWeek(rawValue: weekDayUnwrapped) {
             return jourEnLettre.description()
+        } else {
+            return ""
+        }
+    }
+    
+    var moisToDisplay: String {
+        var month:Int?
+        if let myCalendar = calendar{
+            let myMonthComponents = myCalendar.component(.Month, fromDate: date)
+            month = myMonthComponents.hashValue
+        }
+        if let monthUnwrapped = month, moisEnLettre = monthOfYear(rawValue: monthUnwrapped){
+            return moisEnLettre.description()
         } else {
             return ""
         }
@@ -55,10 +69,7 @@ class basicEvent:eventType {
         }
     }
     
-    var moisToDisplay: String {
-        
-        return ""
-    }
+    
     var location: String
     var description: String
     
@@ -69,7 +80,7 @@ class basicEvent:eventType {
     }
     
     func shortDescription() -> String {
-        return "\(jourChiffreToDisplay) \(jourLettreToDisplay) \(heureToDisplay) \(location) \(description)"
+        return "\(jourChiffreToDisplay) \(jourLettreToDisplay) \(moisToDisplay) \(heureToDisplay) \(location) \(description)"
     }
 }
 
@@ -90,7 +101,6 @@ class DataTransfert {
             if let  description = snapshot.value.objectForKey(Reference.ecaDescription) as? String,
                     lieu = snapshot.value.objectForKey(Reference.ecaLieu) as? String,
                     tempJour = snapshot.value.objectForKey(Reference.ecaJour) as? String{
-                
                 if let tempDay = self.convertDate(tempJour){
                     let tempEvent = basicEvent(lieu: lieu, date: tempDay, description: description)
                     self.events.append(tempEvent)
