@@ -26,7 +26,7 @@ class basicEvent:eventType {
     let dateFormatter = NSDateFormatter()
     var date: NSDate
     var jourToDisplay:String {
-        dateFormatter.dateFormat = "dd.MM"
+        dateFormatter.dateFormat = "dd"
         return dateFormatter.stringFromDate(date)
     }
     var heureToDisplay: String {

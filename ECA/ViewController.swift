@@ -54,7 +54,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             if let date = cell.contentView.viewWithTag(tagTblView.date.rawValue) as? UILabel {
                 currentDate = events[indexPath.row].date
-                date.text = events[indexPath.row].jourToDisplay
+                date.text = "dimanche \(events[indexPath.row].jourToDisplay) à \(events[indexPath.row].heureToDisplay)"
                 // TODO: pouvoir retourner lundi-mardi-mercredi janvier-février
             }
             if let heure = cell.contentView.viewWithTag(tagTblView.heure.rawValue) as? UILabel {
