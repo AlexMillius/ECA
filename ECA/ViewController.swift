@@ -26,6 +26,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         eventTableView.dataSource = self
         dataTransfert.delegate = self
         dataTransfert.retrieveData()
+        
+        
+//                let jeudi21 = ["date":"21.04.2016 19:04","description":"Soirée Bhajans et chants du coeur, avec Luc Raimondi","lieu":"espace culturel","intervenant":"Luc Raimondi"]
+//                let samedi23 = ["date":"23.04.2016 15:00","description":"Spectacle Mémoires partagées: dans le prolongement de la Semaine d'actions contre le Racisme, des femmes de tout horizon partagent leurs histoires en paroles et en chants, accompagnées d'Emilie Vuissoz et de Pauline Lugon.","lieu":"espace culturel","intervenant":""]
+//                let jeudi28 = ["date":"28.04.2016 20:00","description":"Conférence de David Drayer: Le Farinet, monnaie locale","lieu":"espace culturel","intervenant":""]
+//        
+//                let eventsRef = Reference.firebaseRoot.childByAppendingPath(Reference.ecaEvent)
+//        
+//                let events = ["jeudi21": jeudi21, "samedi23": samedi23, "jeudi28": jeudi28]
+//                eventsRef.setValue(events)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -43,24 +53,49 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // calcul combien il y a de mois afin de pouvoir séparer les chapitres dans la tableView
-    func getNumberOfMonthToDisplay(events: [basicEvent]){
-        var refMois = String()
-        numberOfMonthToDisplay = Int()
-        for event in events {
-            var tempMois = String()
-            tempMois = event.moisToDisplay
-            print("\(refMois) != \(tempMois)")
-            if refMois != tempMois {
-                numberOfMonthToDisplay += 1
-                print("numberOfMonth: \(numberOfMonthToDisplay)")
-                refMois = tempMois
-            }
-        }
-    }
-    
     // calcul combien il y a d'events par mois pour séparer les header de la tableView
-    func createArrayOfDataInSections(events: [basicEvent]){
+    // pour le nombre de mois (numberOfMonthToDisplay) la variable tempRefMois et le numberOfMonthToDisplay sont initialisés. on loop les events. Chaque fois que le nom d'un event.moisToDisplay (par exemple avril) n'est pas identique à la tempRefMois, on incrémente le numberOfMonthToDisplay. Pour terminer, on affecte le nom du .moisToDisplay actuel à la tempRefMois pour la prochaine boucle.
+    func getNumberOfMonthToDisplay(events: [basicEvent]){
+        var tempRefMois = String()
         
+        var tempNbInSection = Int()
+        print("tempNbInSection init: \(tempNbInSection)")
+        var currentMonth = String()
+        var lastMonth = String()
+        var count = 0
+        numberOfMonthToDisplay = Int()
+        numberOfEventInEachSection = [Int]()
+        for event in events {
+            // implémentation pour nb de mois
+            if tempRefMois != event.moisToDisplay {
+                numberOfMonthToDisplay += 1
+                tempRefMois = event.moisToDisplay
+            }
+            // implémentation pour nb de section par mois
+            count += 1
+            currentMonth = event.moisToDisplay
+            if lastMonth != currentMonth {
+                tempNbInSection += 1
+                print("tempNbInSection: \(tempNbInSection)")
+                if count == events.count {
+                    numberOfEventInEachSection.append(tempNbInSection)
+                    print("numberSectionArray: \(numberOfEventInEachSection)")
+                    tempNbInSection = 0
+                }
+            } else {
+                numberOfEventInEachSection.append(tempNbInSection)
+                print("numberSectionArray: \(numberOfEventInEachSection)")
+                tempNbInSection = 1
+                lastMonth = currentMonth
+            }
+
+            
+            
+            
+            
+            
+            
+        }
     }
     
     //MARK: tableView delegate
