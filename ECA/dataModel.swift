@@ -17,6 +17,7 @@ protocol eventType {
     var jourChiffreToDisplay: String { get }
     var jourLettreToDisplay: String { get }
     var heureToDisplay: String { get }
+    var moisToDisplay: String { get }
     var location: String { get }
     var description: String { get }
     
@@ -25,24 +26,21 @@ protocol eventType {
 
 class basicEvent:eventType {
     let dateFormatter = NSDateFormatter()
-    var date: NSDate
-    var jourChiffreToDisplay: String {
+    var date:NSDate
+    var jourChiffreToDisplay:String {
         dateFormatter.dateFormat = Reference.heureFormat
         return dateFormatter.stringFromDate(date)
     }
     var jourLettreToDisplay: String {
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let myComponents = myCalendar.components(.Weekday, fromDate: date)
-        let weekDay = myComponents.weekday
-        switch weekDay {
-        case 1: return dayOfWeek.dimanche.rawValue
-        case 2: return dayOfWeek.lundi.rawValue
-        case 3: return dayOfWeek.mardi.rawValue
-        case 4: return dayOfWeek.mercredi.rawValue
-        case 5: return dayOfWeek.jeudi.rawValue
-        case 6: return dayOfWeek.vendredi.rawValue
-        case 7: return dayOfWeek.samedi.rawValue
-        default: return ""
+        var weekDay:Int?
+        if let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian){
+            let myComponents = myCalendar.components(.Weekday, fromDate: date)
+            weekDay = myComponents.weekday
+        }
+        if let weekDayUnwrapped = weekDay, jourEnLettre = dayOfWeek(rawValue: weekDayUnwrapped) {
+            return jourEnLettre.description()
+        } else {
+            return ""
         }
     }
     var heureToDisplay: String {
@@ -55,7 +53,11 @@ class basicEvent:eventType {
         } else {
             return "\(hours)h\(minutes)"
         }
+    }
+    
+    var moisToDisplay: String {
         
+        return ""
     }
     var location: String
     var description: String

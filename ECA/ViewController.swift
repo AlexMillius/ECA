@@ -11,7 +11,6 @@ import Firebase
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DataDelegate{
     
-    
     @IBOutlet weak var eventTableView: UITableView!
     
     var events = [basicEvent]()
