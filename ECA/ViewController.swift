@@ -59,16 +59,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var tempRefMois = String()
         
         var tempNbInSection = Int()
-        print("tempNbInSection init: \(tempNbInSection)")
+        //print("tempNbInSection init: \(tempNbInSection)")
         var currentMonth = String()
         var lastMonth = String()
         var count = 0
         numberOfMonthToDisplay = Int()
+        //print("number reinit to 0: \(numberOfMonthToDisplay)")
         numberOfEventInEachSection = [Int]()
         for event in events {
             // implémentation pour nb de mois
             if tempRefMois != event.moisToDisplay {
                 numberOfMonthToDisplay += 1
+                //print("number incremented \(numberOfMonthToDisplay)")
                 tempRefMois = event.moisToDisplay
             }
             // implémentation pour nb de section par mois
@@ -76,24 +78,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             currentMonth = event.moisToDisplay
             if lastMonth != currentMonth {
                 tempNbInSection += 1
-                print("tempNbInSection: \(tempNbInSection)")
+                //print("tempNbInSection: \(tempNbInSection)")
                 if count == events.count {
                     numberOfEventInEachSection.append(tempNbInSection)
-                    print("numberSectionArray: \(numberOfEventInEachSection)")
+                    //print("numberSectionArray: \(numberOfEventInEachSection)")
                     tempNbInSection = 0
                 }
             } else {
                 numberOfEventInEachSection.append(tempNbInSection)
-                print("numberSectionArray: \(numberOfEventInEachSection)")
+                //print("numberSectionArray: \(numberOfEventInEachSection)")
                 tempNbInSection = 1
                 lastMonth = currentMonth
             }
-
-            
-            
-            
-            
-            
             
         }
     }
@@ -105,7 +101,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return numberOfMonthToDisplay
+        //print("number returned in tableView method \(numberOfMonthToDisplay)")
+        return 1//numberOfMonthToDisplay
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
