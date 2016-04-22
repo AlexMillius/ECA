@@ -17,15 +17,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var events = [basicEvent]()
     var currentDate: NSDate?
     var currentDescription: String?
+    let dataTransfert = DataTransfert()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         eventTableView.delegate = self
         eventTableView.dataSource = self
-        let dataTransfert = DataTransfert()
         dataTransfert.delegate = self
         dataTransfert.retrieveData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        //TODO: mettre ici le dataTransfert.retrieveData quand j'aurai enlever la detailVue
     }
     
     func eventHasBeenRetreive(events: [basicEvent]) {
@@ -35,9 +38,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: tableView delegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 160.0
         return events.count
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        tableView.estimatedRowHeight = Reference.estimatedRowHeight
+        return UITableViewAutomaticDimension
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -48,11 +54,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             if let date = cell.contentView.viewWithTag(tagTblView.date.rawValue) as? UILabel {
                 currentDate = events[indexPath.row].date
-                date.text = events[indexPath.row].jour
+                date.text = events[indexPath.row].jourToDisplay
                 // TODO: pouvoir retourner lundi-mardi-mercredi janvier-février
             }
             if let heure = cell.contentView.viewWithTag(tagTblView.heure.rawValue) as? UILabel {
-                heure.text = events[indexPath.row].heure
+                heure.text = events[indexPath.row].heureToDisplay
                 // TODO: retourner 20h15
             }
             return cell
@@ -73,7 +79,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 detailVC.date = currentDate
                 detailVC.texteEvent = currentDescription
             }
-            
         }
     }
 }

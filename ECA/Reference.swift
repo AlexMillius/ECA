@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import UIKit
 
 struct Reference {
     static let firebaseRoot = Firebase(url: "https://eca.firebaseio.com")
@@ -17,9 +18,10 @@ struct Reference {
     static let ecaHeure = "heure"
     static let ecaJour = "date"
     static let ecaDescription = "description"
-    static let ecaIntervenant = "intervenant"
+    static let ecaIntervenant   = "intervenant"
     static let ecaLieu = "lieu"
     static let detailSegueIdentifier = "detailViewSegue"
+    static let estimatedRowHeight:CGFloat = 160.0
 }
 
 enum tagTblView:Int {

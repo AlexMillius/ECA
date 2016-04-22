@@ -13,53 +13,45 @@ protocol DataDelegate {
 }
 
 protocol eventType {
-    var date:NSDate? { get }
-    var time:NSDate? { get }
+    var date:NSDate { get }
+    var jourToDisplay:String { get }
+    var heureToDisplay:String { get }
     var location:String { get }
-    var people:String? { get }
     var description:String { get }
     
     func shortDescription() -> String
 }
 
 class basicEvent:eventType {
-    var date: NSDate? {
-        return convertDate(jour)
+    let dateFormatter = NSDateFormatter()
+    var date: NSDate
+    var jourToDisplay:String {
+        dateFormatter.dateFormat = "dd.MM"
+        return dateFormatter.stringFromDate(date)
     }
-    var jour: String
-    var time: NSDate?  {
-        return convertTime(heure)
+    var heureToDisplay: String {
+        let hours = NSCalendar.currentCalendar().component(.Hour, fromDate: date)
+        let minutes = NSCalendar.currentCalendar().component(.Minute, fromDate: date)
+        if minutes == 0 {
+            return "\(hours)h\(minutes)0"
+        } else if minutes < 10 {
+            return "\(hours)h0\(minutes)"
+        } else {
+            return "\(hours)h\(minutes)"
+        }
+        
     }
-    var heure:String
     var location: String
-    var people:String?
     var description: String
     
-    init(jour:String, heure:String, lieu:String, description: String, people: String){
-        self.jour = jour
-        self.heure = heure
+    init(lieu:String, date:NSDate, description: String){
         self.location = lieu
+        self.date = date
         self.description = description
-        self.people = people
     }
-    
-    let dateFormatter = NSDateFormatter()
-    
-    private func convertDate(date: String) -> NSDate? {
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        return dateFormatter.dateFromString(date)
-    }
-    
-    private func convertTime(time:String) -> NSDate? {
-        dateFormatter.dateFormat = "HH:mm"
-        
-        return dateFormatter.dateFromString(time)
-    }
-    
-    
     
     func shortDescription() -> String {
-        return "\(jour) \(heure) \(location) \(description)"
+        return "\(jourToDisplay) \(heureToDisplay) \(location) \(description)"
     }
 }
 
@@ -68,29 +60,38 @@ class DataTransfert {
     var delegate:DataDelegate?
     var events = [basicEvent]()
     
-    //        let jeudi21 = ["date":"21.04.2016","heure":"19h30","description":"Soirée Bhajans et chants du coeur, avec Luc Raimondi","lieu":"espace culturel","intervenant":"Luc Raimondi"]
-    //        let samedi23 = ["date":"23.04.2016","heure":"20h00","description":"Spectacle Mémoires partagées: dans le prolongement de la Semaine d'actions contre le Racisme, des femmes de tout horizon partagent leurs histoires en paroles et en chants, accompagnées d'Emilie Vuissoz et de Pauline Lugon.","lieu":"espace culturel","intervenant":""]
-    //
-    //        let eventsRef = Reference.firebaseRoot.childByAppendingPath(Reference.ecaEvent)
-    //
-    //        let events = ["jeudi21": jeudi21, "samedi23": samedi23]
-    //        eventsRef.setValue(events)
+    let dateFormatter = NSDateFormatter()
+    
+    private func convertDate(date: String) -> NSDate? {
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
+        return dateFormatter.dateFromString(date)
+    }
     
     func retrieveData(){
         Reference.firebaseEvents.observeEventType(.ChildAdded, withBlock: { snapshot in
             if let  description = snapshot.value.objectForKey(Reference.ecaDescription) as? String,
                     lieu = snapshot.value.objectForKey(Reference.ecaLieu) as? String,
-                    date = snapshot.value.objectForKey(Reference.ecaJour) as? String,
-                    heure = snapshot.value.objectForKey(Reference.ecaHeure) as? String,
-                    intervenant = snapshot.value.objectForKey(Reference.ecaIntervenant) as? String{
+                    tempJour = snapshot.value.objectForKey(Reference.ecaJour) as? String{
                 
-                let tempEvent = basicEvent(jour: date, heure: heure, lieu: lieu, description: description, people: intervenant)
-                self.events.append(tempEvent)
-                self.delegate?.eventHasBeenRetreive(self.events)
+                if let tempDay = self.convertDate(tempJour){
+                    let tempEvent = basicEvent(lieu: lieu, date: tempDay, description: description)
+                    self.events.append(tempEvent)
+                    self.delegate?.eventHasBeenRetreive(self.events)
+                } else {
+                    //TODO: Throw error and manage.
+                }
             }
         })
     }
 }
 
+
+//        let jeudi21 = ["date":"21.04.2016","heure":"19h30","description":"Soirée Bhajans et chants du coeur, avec Luc Raimondi","lieu":"espace culturel","intervenant":"Luc Raimondi"]
+//        let samedi23 = ["date":"23.04.2016","heure":"20h00","description":"Spectacle Mémoires partagées: dans le prolongement de la Semaine d'actions contre le Racisme, des femmes de tout horizon partagent leurs histoires en paroles et en chants, accompagnées d'Emilie Vuissoz et de Pauline Lugon.","lieu":"espace culturel","intervenant":""]
+//
+//        let eventsRef = Reference.firebaseRoot.childByAppendingPath(Reference.ecaEvent)
+//
+//        let events = ["jeudi21": jeudi21, "samedi23": samedi23]
+//        eventsRef.setValue(events)
 
 
