@@ -18,7 +18,7 @@ struct Reference {
     static let ecaHeure = "heure"
     static let ecaJour = "date"
     static let ecaDescription = "description"
-    static let ecaIntervenant   = "intervenant"
+    static let ecaIntervenant = "intervenant"
     static let ecaLieu = "lieu"
     static let detailSegueIdentifier = "detailViewSegue"
     static let estimatedRowHeight:CGFloat = 160.0
@@ -29,6 +29,8 @@ struct Reference {
 enum tagTblView:Int {
     case date = 1
     case description
+    case backgroundView
+    case buttonView
 }
 
 enum dayOfWeek:Int {

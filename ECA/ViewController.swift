@@ -13,42 +13,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var eventTableView: UITableView!
     
+    // pour le transfert de données
     var events = [basicEvent]()
-    var currentDate: NSDate?
-    var currentDescription: String? //TODO: delete
     let dataTransfert = DataTransfert()
+    // pour le calcul de l'affichage de la tableView
     var numberOfMonthToDisplay = Int()
     var numberOfEventInEachSection = [Int]()
+    // pour l'affichage de la tableView
+    var currentDate: NSDate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         eventTableView.delegate = self
         eventTableView.dataSource = self
         dataTransfert.delegate = self
-        dataTransfert.retrieveData()
-        
-        
-//                let jeudi21 = ["date":"21.04.2016 19:04","description":"Soirée Bhajans et chants du coeur, avec Luc Raimondi","lieu":"espace culturel","intervenant":"Luc Raimondi"]
-//                let samedi23 = ["date":"23.04.2016 15:00","description":"Spectacle Mémoires partagées: dans le prolongement de la Semaine d'actions contre le Racisme, des femmes de tout horizon partagent leurs histoires en paroles et en chants, accompagnées d'Emilie Vuissoz et de Pauline Lugon.","lieu":"espace culturel","intervenant":""]
-//                let jeudi28 = ["date":"28.04.2016 20:00","description":"Conférence de David Drayer: Le Farinet, monnaie locale","lieu":"espace culturel","intervenant":""]
-//        
-//                let eventsRef = Reference.firebaseRoot.childByAppendingPath(Reference.ecaEvent)
-//        
-//                let events = ["jeudi21": jeudi21, "samedi23": samedi23, "jeudi28": jeudi28]
-//                eventsRef.setValue(events)
     }
     
     override func viewWillAppear(animated: Bool) {
-        //TODO: mettre ici le dataTransfert.retrieveData quand j'aurai enlever la detailVue
+        dataTransfert.retrieveData()
     }
     
     func eventHasBeenRetreive(events: [basicEvent]) {
         self.events = events
-        
-        
         getNumberOfMonthToDisplay(events)
-        
-        
         eventTableView.reloadData()
     }
     
@@ -110,35 +97,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return UITableViewAutomaticDimension
     }
     
+    private func dateToText(index:NSIndexPath) -> String {
+        return "\(events[index.row].jourLettreToDisplay) \(events[index.row].jourChiffreToDisplay) à \(events[index.row].heureToDisplay)"
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(Reference.tableViewCell){
             if let description = cell.contentView.viewWithTag(tagTblView.description.rawValue) as? UILabel {
-                currentDescription = events[indexPath.row].description
-                description.text = currentDescription
+                description.text = events[indexPath.row].description
+                //print(description.frame.height)
             }
             if let date = cell.contentView.viewWithTag(tagTblView.date.rawValue) as? UILabel {
                 currentDate = events[indexPath.row].date
-                date.text = "\(events[indexPath.row].jourLettreToDisplay) \(events[indexPath.row].jourChiffreToDisplay) à \(events[indexPath.row].heureToDisplay)"
+                date.text = dateToText(indexPath)
             }
+            
             return cell
         } else {
             //TODO: Throw error
            return UITableViewCell()
         }
     }
-    
+    // le forRow est initialisé à -1 afin que aucun row ne corresponde à l'initialisation
+    var selectedRowIndex = NSIndexPath(forRow: -1, inSection: 0)
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(Reference.detailSegueIdentifier, sender: nil)
+        selectedRowIndex = indexPath
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        let textToShare = "J'ai trouvé un événement super!"
+        
+        let descriptionToShare = events[indexPath.row].description
+        print(descriptionToShare)
+        let dateToShare = dateToText(indexPath) + "."
+        print(dateToShare)
+        
+        let objectsToShare = [textToShare, dateToShare, descriptionToShare]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+//        
+//        activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
+//        
+//        self.presentViewController(activityVC, animated: true, completion: nil)
+//        
+//        let activityViewController = UIActivityViewController(activityItems: [textToShare, testUrl!], applicationActivities: nil)
+        self.presentViewController(activityVC, animated: true) {
+//            // ...
+        }
+//        shareTapped()
+        
     }
     
-    //MARK: prepareSegue
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == Reference.detailSegueIdentifier {
-            if let detailVC = segue.destinationViewController as? DetailViewController {
-                detailVC.date = currentDate
-                detailVC.texteEvent = currentDescription
-            }
-        }
+    func shareTapped() {
+        let vc = UIActivityViewController(activityItems: ["Hello"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        presentViewController(vc, animated: true, completion: nil)
     }
+    
 }
 
